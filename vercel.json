@@ -15,9 +15,5 @@
       "src": "/(.*)",
       "dest": "/index.js"
     }
-  ],
-  "server": {
-    "startScript": "npm start",
-    "port": 9001
-  }
+  ]
 }
