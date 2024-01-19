@@ -3,6 +3,7 @@ const express = require("express");
 const { createServer } = require('http');
 const { Server } = require('socket.io');
 require('dotenv').config();
+const port = process.env.PORT || 9001;
 
 // Middlewares
 const app = express();
@@ -21,7 +22,7 @@ const io = new Server(httpServer, {
 app.get("/", (req, res) => {
     res.status(200).json({
         title: "Express Testing",
-        message: "The app is working properly!",
+        message: `The app is working properly! , ${port}`,
     });
 });
 
@@ -34,6 +35,7 @@ io.on('connection', (socket) => {
     io.emit('userCount', countUser);
 
     socket.on('MenssageNew', (obj) => {
+        console.log(obj)
         io.emit('Menssage-recibe', {
             obj,
             time: new Intl.DateTimeFormat("default", {
@@ -53,7 +55,6 @@ io.on('connection', (socket) => {
 });
 
 // Connection
-const port = process.env.PORT || 9001;
 httpServer.listen(port, () => {
     console.log(`Express and Socket.IO server listening on port ${port}`);
 });
